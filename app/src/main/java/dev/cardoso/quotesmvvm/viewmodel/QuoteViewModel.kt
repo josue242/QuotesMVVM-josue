@@ -14,11 +14,13 @@ class QuoteViewModel : ViewModel() {
     private val _quoteModel = MutableStateFlow(QuoteModel("",""))
     val quoteModel: StateFlow<QuoteModel> = _quoteModel
 
+
+
     //---  Load data from a suspend fun and mutate state
     fun randomQuote() {
         viewModelScope.launch {
-            val result = QuoteProvider.random()
-            _quoteModel.value = result
+            val quote= QuoteProvider.random()
+            _quoteModel.value = quote
         }
     }
 

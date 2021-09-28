@@ -5,9 +5,8 @@ class QuoteProvider {
     companion object {
 
         fun random():QuoteModel {
-            val position = (0..10).random()
+            val position = (0..11).random()
             return quotes[position]
-
         }
 
         private val quotes = listOf(
@@ -58,7 +57,10 @@ class QuoteProvider {
             ),
             QuoteModel(
                 quote = "El mejor lugar para estudiar es el ITVO",
-                author = "Academia de Informatica y Tics")
+                author = "Academia de Informatica y Tics"),
+            QuoteModel(
+                quote = "El respeto al derecho ajeno es la paz",
+                author = "Benito Juárez García")
         )
     }
 }
