@@ -1,11 +1,11 @@
-package dev.cardoso.quotesmvvm.view
+package dev.cardoso.quotesmvvm.presentation.view
 
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import dev.cardoso.quotesmvvm.databinding.ActivityMainBinding
-import dev.cardoso.quotesmvvm.viewmodel.QuoteViewModel
+import dev.cardoso.quotesmvvm.presentation.viewmodel.QuoteViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -17,6 +17,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        quoteViewModel.setContext(this)
         quoteViewModel.randomQuote()
         observer()
         binding.viewContainer.setOnClickListener {

@@ -1,7 +1,7 @@
 package dev.cardoso.quotesmvvm
 
-import dev.cardoso.quotesmvvm.model.QuoteModel
-import dev.cardoso.quotesmvvm.model.QuoteProvider
+import dev.cardoso.quotesmvvm.data.model.QuoteModel
+import dev.cardoso.quotesmvvm.data.model.QuoteProvider
 import junit.framework.Assert.assertEquals
 import org.junit.Test
 
