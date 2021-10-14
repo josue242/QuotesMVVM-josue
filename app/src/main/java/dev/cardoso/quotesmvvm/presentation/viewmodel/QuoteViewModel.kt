@@ -25,8 +25,7 @@ class QuoteViewModel : ViewModel() {
 
     fun getQuotes() {
         viewModelScope.launch {
-            GetQuotesUseCase(quoteDAO).getQuotes().collect {
-            }
+            _quoteModel.value= GetQuotesUseCase(quoteDAO).getQuotes().first()[0]
         }
     }
     //---  Load data from a suspend fun and mutate state

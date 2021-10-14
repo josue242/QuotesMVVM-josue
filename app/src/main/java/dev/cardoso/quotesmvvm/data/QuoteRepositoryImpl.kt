@@ -32,7 +32,7 @@ class QuoteRepositoryImpl(quoteDAO: QuoteDAO): QuoteRepository {
             }
             localDataSource.insertAll(quotes)
         }
-        return (flow { quotes })
+        return (flow { emit (quotes) })
     }
 
     override suspend fun getQuoteRandom(): Flow<QuoteModel> {
