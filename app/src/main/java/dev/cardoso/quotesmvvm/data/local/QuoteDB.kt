@@ -12,7 +12,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
-@Database(entities = [QuoteEntity::class ], version = 1)
+@Database(entities = [QuoteEntity::class, ], version = 1)
 abstract class QuoteDB : RoomDatabase() {
 
     abstract fun quoteDao(): QuoteDAO

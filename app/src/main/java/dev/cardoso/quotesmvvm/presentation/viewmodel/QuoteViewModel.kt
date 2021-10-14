@@ -21,6 +21,7 @@ class QuoteViewModel : ViewModel() {
 
     private val _quoteModel = MutableStateFlow(QuoteModel(0,"",""))
     val quoteModel: StateFlow<QuoteModel> = _quoteModel
+
     private lateinit var quoteDAO: QuoteDAO
 
     fun getQuotes() {

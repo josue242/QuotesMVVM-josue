@@ -12,11 +12,11 @@ class QuoteLocalDataSourceImpl(private val quoteDAO: QuoteDAO):QuoteLocalDataSou
     override fun getQuotes(): Flow<List<QuoteModel>> {
         val quotes = quoteDAO.getQuotes()
         val quotesMapped= quotes.map {
-            it.map { quoteModel ->
+            it.map { quoteEntity ->
                 QuoteModel(
-                    id = quoteModel.id,
-                    quote = quoteModel.quote,
-                    author = quoteModel.author
+                    id = quoteEntity.id,
+                    quote = quoteEntity.quote,
+                    author = quoteEntity.author
                 )
             }
         }
@@ -25,7 +25,7 @@ class QuoteLocalDataSourceImpl(private val quoteDAO: QuoteDAO):QuoteLocalDataSou
 
     override  fun getQuote(quoteId: Int): Flow<QuoteModel> {
         return  quoteDAO.getQuote(quoteId).map {
-            QuoteModel(id=it.id,
+            QuoteModel(id= it.id,
                 quote = it.quote,
                 author = it.author)
             }
@@ -33,7 +33,7 @@ class QuoteLocalDataSourceImpl(private val quoteDAO: QuoteDAO):QuoteLocalDataSou
 
     override fun getQuoteRandom(): Flow<QuoteModel> {
         return  quoteDAO.getQuoteRandom().map {
-            QuoteModel(id=it.id,
+            QuoteModel(id= it.id,
                 quote = it.quote,
                 author = it.author)
         }
@@ -41,19 +41,19 @@ class QuoteLocalDataSourceImpl(private val quoteDAO: QuoteDAO):QuoteLocalDataSou
 
     override suspend fun insertAll(quotes: List<QuoteModel>) {
         quoteDAO.insertAll(quotes!!.map {
-            QuoteEntity(id=it.id,
+            QuoteEntity(id= it.id,
                 quote = it.quote,
                 author = it.author)
         })
     }
 
 
-    override suspend fun insert(quote: QuoteModel) {
+    override suspend fun insert(quoteModel: QuoteModel) {
         quoteDAO.insert(
             QuoteEntity(
-                id=quote.id,
-                quote=quote.quote,
-                author = quote.author) )
+                id= quoteModel.id,
+                quote= quoteModel.quote,
+                author = quoteModel.author) )
     }
 
 }

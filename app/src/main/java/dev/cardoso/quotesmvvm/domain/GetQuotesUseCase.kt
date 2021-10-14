@@ -5,7 +5,7 @@ import dev.cardoso.quotesmvvm.data.local.daos.QuoteDAO
 import dev.cardoso.quotesmvvm.data.model.QuoteModel
 import kotlinx.coroutines.flow.Flow
 
-class GetQuotesUseCase (private val quoteDAO: QuoteDAO) {
+class GetQuotesUseCase (quoteDAO: QuoteDAO) {
 
     private val quoteRepository = QuoteRepositoryImpl(quoteDAO)
 
