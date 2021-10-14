@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         quoteViewModel.setContext(this)
-        quoteViewModel.randomQuote()
+        quoteViewModel.getQuotes()
         observer()
         binding.viewContainer.setOnClickListener {
             quoteViewModel.randomQuote()

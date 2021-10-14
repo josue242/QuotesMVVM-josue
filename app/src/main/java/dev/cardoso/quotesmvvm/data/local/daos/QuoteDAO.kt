@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface QuoteDAO {
     @Insert
-    fun insert(quote: QuoteEntity)
+    suspend fun insert(quote: QuoteEntity)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(quotes: List<QuoteEntity>)
@@ -21,6 +21,9 @@ interface QuoteDAO {
 
     @Query("SELECT * FROM quote WHERE id = :quoteId")
     fun getQuote(quoteId: Int): Flow<QuoteEntity>
+
+    @Query("SELECT * FROM quote ORDER BY random() LIMIT 1")
+    fun getQuoteRandom(): Flow<QuoteEntity>
 
     @Query("DELETE FROM quote")
     suspend fun deleteAll()

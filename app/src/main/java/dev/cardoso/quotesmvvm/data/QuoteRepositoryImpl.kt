@@ -2,38 +2,44 @@ package dev.cardoso.quotesmvvm.data
 
 import android.accounts.NetworkErrorException
 import android.util.Log
+import dev.cardoso.quotesmvvm.core.convertToList
 import dev.cardoso.quotesmvvm.data.local.daos.QuoteDAO
 import dev.cardoso.quotesmvvm.data.model.QuoteModel
 import dev.cardoso.quotesmvvm.domain.QuoteRepository
 import kotlinx.coroutines.flow.*
 
+
 class QuoteRepositoryImpl(quoteDAO: QuoteDAO): QuoteRepository {
     private val localDataSource= QuoteLocalDataSourceImpl(quoteDAO)
     private val remoteDataSource= QuoteRemoteDataSourceImpl()
 
-    override suspend fun getQuotes(): Flow<List<QuoteModel>> {
-        val localQuotes: Flow<List<QuoteModel>> =  localDataSource.getQuotes()
+    override suspend  fun getQuotes(): Flow<List<QuoteModel>> {
         val remoteQuotes =
-            try {
-                remoteDataSource.getQuotes()
-            } catch (ex: Exception) {
-                when (ex) {
-                    is NetworkErrorException -> throw ex
-                    else -> null
-                }
+        try {
+            remoteDataSource.getQuotes()
+        } catch (ex: Exception) {
+            when (ex) {
+                is NetworkErrorException -> throw ex
+                else -> null
             }
-
+        }
+        val quotes = ArrayList<QuoteModel>()
         if (remoteQuotes != null) {
-            val quotes = ArrayList<QuoteModel>()
             remoteQuotes.collect {
                 it?.forEach { quoteModel->
-                    Log.e("RESP",quoteModel.toString() )
                     quotes.add(quoteModel)
                 }
             }
             localDataSource.insertAll(quotes)
         }
-        Log.e("REMOTE:", remoteQuotes.toString())
-        return (localQuotes)
+        return (flow { quotes })
+    }
+
+    override suspend fun getQuoteRandom(): Flow<QuoteModel> {
+        return  localDataSource.getQuoteRandom()
+    }
+
+    override suspend fun getQuote(quoteId: Int): Flow<QuoteModel> {
+           return localDataSource.getQuote(quoteId)
     }
 }

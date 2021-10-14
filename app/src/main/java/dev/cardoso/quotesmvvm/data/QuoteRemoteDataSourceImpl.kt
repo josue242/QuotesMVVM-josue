@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
 
-class QuoteRemoteDataSourceImpl(): QuoteRemoteDataSource  {
+class QuoteRemoteDataSourceImpl: QuoteRemoteDataSource  {
     override suspend fun getQuotes(): Flow<List<QuoteModel>?> {
         val response =  QuoteApiImpl().getQuotes()
         return (response.body().let {
