@@ -1,14 +1,14 @@
-package dev.cardoso.quotesmvvm.domain
+package dev.cardoso.quotesmvvm.domain.usecase
 
 import dev.cardoso.quotesmvvm.data.QuoteRepositoryImpl
-import dev.cardoso.quotesmvvm.data.local.QuoteDB
 import dev.cardoso.quotesmvvm.data.local.daos.QuoteDAO
 import dev.cardoso.quotesmvvm.data.model.QuoteModel
+import dev.cardoso.quotesmvvm.domain.QuoteRepository
 import kotlinx.coroutines.flow.Flow
 
-class GetQuoteUseCase(private val quoteDAO: QuoteDAO) {
+class GetQuoteUseCase(quoteDAO: QuoteDAO, private val quoteRepository: QuoteRepository) {
 
-    private val quoteRepository = QuoteRepositoryImpl(quoteDAO)
+  //  private val quoteRepository = QuoteRepositoryImpl(quoteDAO)
 
     suspend fun getQuote(quoteId:Int): Flow<QuoteModel> = quoteRepository.getQuote(quoteId)
 
